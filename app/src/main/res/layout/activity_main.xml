@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bardavid.boaz.photorater.MainActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#4d5198"
+        app:titleTextColor="#FFFFFF"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Sign up"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="8dp"
+        />
+    <TextView
+        android:id="@+id/headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Sign up"
+        android:textAllCaps="true"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headline"
+        android:layout_marginEnd="80dp"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headline" />
+
+    <EditText
+        android:id="@+id/age"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:hint="Age"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/age"
+        android:layout_marginTop="10dp"
+        android:text="Gender:"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="@id/age"
+        app:layout_constraintTop_toBottomOf="@+id/age" />
+
+    <RadioGroup
+        android:id="@+id/genderRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/gender"
+        app:layout_constraintStart_toStartOf="@id/gender"
+        app:layout_constraintTop_toBottomOf="@+id/age">
+
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="65dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:onClick="genderRadioButtonHandler"
+            android:text="Male"
+            app:layout_constraintStart_toEndOf="@+id/gender"
+            app:layout_constraintTop_toTopOf="@+id/gender" />
+
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:onClick="genderRadioButtonHandler"
+            android:text="Female"
+            app:layout_constraintStart_toEndOf="@+id/male"
+            app:layout_constraintTop_toTopOf="@+id/male" />
+
+        <RadioButton
+            android:id="@+id/other"
+            android:layout_width="71dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="43dp"
+            android:onClick="genderRadioButtonHandler"
+            android:text="Other"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/female"
+            app:layout_constraintTop_toTopOf="@+id/female" />
+    </RadioGroup>
+
+
+
+    <TextView
+        android:id="@+id/preferencesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/genderRadio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textAllCaps="true"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:text="Preferences"
+        android:layout_centerHorizontal="true"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/genderPreferenceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="I want my photos to be rated by:"
+        app:layout_constraintStart_toStartOf="@id/name"
+        app:layout_constraintTop_toBottomOf="@+id/preferencesText" />
+
+    <RadioGroup
+        android:id="@+id/genderPreferenceRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@id/name"
+        app:layout_constraintTop_toBottomOf="@+id/genderPreferenceText">
+
+    <RadioButton
+        android:id="@+id/everybodyBtn"
+        android:checked="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All genders"
+        android:onClick="genderPreferenceButtonHandler"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genderPreferenceRadio" />
+
+    <RadioButton
+        android:id="@+id/malesPreferenceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Males only"
+        android:onClick="genderPreferenceButtonHandler"
+        app:layout_constraintStart_toStartOf="@id/everybodyBtn"
+        app:layout_constraintTop_toBottomOf="@+id/everybodyBtn" />
+    <RadioButton
+        android:id="@+id/femalesPreferenceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Females only"
+        android:onClick="genderPreferenceButtonHandler"
+        app:layout_constraintStart_toStartOf="@id/everybodyBtn"
+        app:layout_constraintTop_toBottomOf="@+id/malesPreferenceBtn" />
+    </RadioGroup>
+    <RadioGroup
+        android:id="@+id/agePreferenceRadio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="3dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@id/genderPreferenceRadio"
+        app:layout_constraintTop_toBottomOf="@+id/genderPreferenceText">
+    <RadioButton
+        android:id="@+id/allAgesPreferenceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="All ages"
+        android:onClick="agePreferenceButtonHandler"
+        app:layout_constraintStart_toStartOf="@id/agePreferenceRadio"
+        app:layout_constraintTop_toBottomOf="@+id/agePreferenceRadio" />
+    <RadioButton
+        android:id="@+id/agesUnder18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="18 and under only"
+        android:onClick="agePreferenceButtonHandler"
+        app:layout_constraintStart_toStartOf="@id/agePreferenceRadio"
+        app:layout_constraintTop_toBottomOf="@+id/allAgesPreferenceBtn" />
+    <RadioButton
+        android:id="@+id/ages18to29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="18-29 only"
+        android:onClick="agePreferenceButtonHandler"
+        app:layout_constraintStart_toStartOf="@id/agePreferenceRadio"
+        app:layout_constraintTop_toBottomOf="@+id/agesUnder18" />
+    <RadioButton
+        android:id="@+id/ages30up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="30+ only"
+        android:onClick="agePreferenceButtonHandler"
+        app:layout_constraintStart_toStartOf="@id/agePreferenceRadio"
+        app:layout_constraintTop_toBottomOf="@+id/ages18to29" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/illegalGenderTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="*Please select gender"
+        android:textSize="20dp"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/illegalAgeTxt"
+        app:layout_constraintTop_toBottomOf="@+id/illegalAgeTxt" />
+
+    <TextView
+        android:id="@+id/illegalAgeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="*Please enter legal age"
+        android:textSize="20dp"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/illegalNameTxt"
+        app:layout_constraintTop_toBottomOf="@+id/illegalNameTxt" />
+
+    <TextView
+        android:id="@+id/illegalNameTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="40dp"
+        android:text="*Please enter legel name"
+        android:textSize="20dp"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/agePreferenceRadio" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:background="@drawable/custom_button"
+        android:onClick="onStartBtnClicked"
+        android:text="sign up"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/illegalGenderTxt" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Photo Rater</string>
+    <string name="title_activity_choose_photo">Choose Photo</string>
+    <string name="rate_this_picture">Rate this picture</string>
+    <string name="welcome_title">Welcome to Rater!</string>
+    <string name="welcome_text1">Sign up, upload your photos and get them rated by real people!</string>
+    <string name="welcome_text2">For each photo you upload, you will need to rate 25 photos of other people, in order to see your ratings</string>
+
+
+</resources>

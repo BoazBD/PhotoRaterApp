@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "303843426149",
+    "project_id": "photorater-7b604",
+    "storage_bucket": "photorater-7b604.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303843426149:android:41ed54f4a42c1318bc6b8c",
+        "android_client_info": {
+          "package_name": "com.bardavid.boaz.photorater"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303843426149-6ork9j25s7lglat82ipna4sqc892qj6i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bardavid.boaz.photorater",
+            "certificate_hash": "85e21d92e6fadb9eca9b46d66a00cab7f1d58e49"
+          }
+        },
+        {
+          "client_id": "303843426149-ujvifvdtftd368qog7i2vhr7tv6slrui.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWZ3-58RV1GXQ2_F6IDuf5iyqAgxN16OU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303843426149-ujvifvdtftd368qog7i2vhr7tv6slrui.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
