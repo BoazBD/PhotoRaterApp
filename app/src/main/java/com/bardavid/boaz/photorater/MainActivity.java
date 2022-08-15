@@ -193,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void createNotification(){
         setUpNotificationChannel();
-
         Intent intent= new Intent(MainActivity.this, notificationService.class);
         PendingIntent pendingIntent=PendingIntent.getBroadcast(MainActivity.this,0,intent,PendingIntent.FLAG_IMMUTABLE);
         AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
