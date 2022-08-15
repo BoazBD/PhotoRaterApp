@@ -6,20 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.bardavid.boaz.photorater.MyRatingsActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <include layout="@layout/top_toolbar"
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#4d5198"
-        app:titleTextColor="#FFFFFF"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:title="My Ratings"
-        android:textAlignment="center"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="8dp"
-        />
+        ></include>
     <TextView
         android:id="@+id/noPhotosText"
         android:layout_width="wrap_content"
@@ -40,7 +29,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginTop="30dp"
         android:layout_weight="1"
-        android:text="Upload photo"
+        android:text="Upload photos"
         android:background="@drawable/custom_button"
         android:textSize="16dp"
         android:visibility="invisible"
@@ -70,7 +59,7 @@
             android:layout_height="wrap_content"
             android:background="#fff"
             app:itemTextColor="#FFFFFF"
-            android:backgroundTint="#4d5198"
+            android:backgroundTint="#919191"
             app:menu="@menu/bottom_menu" />
 
     </LinearLayout>

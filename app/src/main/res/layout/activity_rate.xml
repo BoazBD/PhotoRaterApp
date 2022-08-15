@@ -5,33 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.bardavid.boaz.photorater.RateActivity">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#4d5198"
-        app:titleTextColor="#FFFFFF"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:title="Rate"
-        android:textAlignment="center"
-        android:elevation="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        />
 
+<include layout="@layout/top_toolbar"
+    android:id="@+id/toolbar"
+    ></include>
     <TextView
         android:id="@+id/headline"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         app:layout_constraintVertical_weight="1"
-        android:text="Choose the better picture!"
+        android:text="Choose the better photo!"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
+
     <TextView
         android:id="@+id/focusTxt"
         android:layout_width="wrap_content"
@@ -43,7 +33,7 @@
         android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/headline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"></TextView>
+        app:layout_constraintEnd_toEndOf="parent" />
     <TextView
         android:id="@+id/numRatings"
         android:layout_width="wrap_content"
@@ -53,7 +43,7 @@
         android:textSize="32dp"
         android:textStyle="bold"
         android:text="0/20"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/headline"
@@ -61,11 +51,12 @@
 
     <ImageView
         android:id="@+id/reportImg"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:labelFor="@id/reportImg"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         app:layout_constraintVertical_weight="1"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/report_circle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -75,7 +66,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
         android:indeterminate="true"
         android:scaleX="0.3"
@@ -88,12 +79,13 @@
         android:id="@+id/imagesLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/votePhoto1Btn"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headline"
+        app:layout_constraintTop_toBottomOf="@id/focusTxt"
         app:layout_constraintVertical_weight="5">
 
         <ImageView
@@ -115,7 +107,6 @@
             android:layout_marginStart="2.5dp"
             android:layout_marginEnd="5dp"
             android:onClick="btn2"
-
             />
 
     </LinearLayout>
@@ -124,27 +115,29 @@
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/votePhoto1Btn"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headline"
+        app:layout_constraintTop_toBottomOf="@id/focusTxt"
         app:layout_constraintVertical_weight="5">
 
         <ImageView
             android:id="@+id/image3"
+            android:labelFor="@+id/image3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="2.5dp"
             android:onClick="btn1"
-
             />
 
         <ImageView
             android:id="@+id/image4"
+            android:labelFor="@id/image4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -156,11 +149,12 @@
     </LinearLayout>
 <Button
     android:id="@+id/votePhoto1Btn"
+    android:labelFor="@id/votePhoto1Btn"
     android:layout_width="70dp"
     android:layout_height="70dp"
     android:background="@mipmap/heart_btn"
     android:onClick="btn1"
-    android:layout_marginBottom="80dp"
+    android:layout_marginBottom="100dp"
     android:layout_marginEnd="30dp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"
@@ -169,12 +163,13 @@
 
     <Button
         android:id="@+id/votePhoto2Btn"
+        android:labelFor="@id/votePhoto2Btn"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@mipmap/heart_btn"
         android:onClick="btn2"
         android:layout_marginStart="30dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintStart_toEndOf="@id/votePhoto1Btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"></Button>
@@ -193,7 +188,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
-            android:backgroundTint="#d159be"
+            android:backgroundTint="#919191"
             app:itemTextColor="#FFFFFF"
             app:menu="@menu/bottom_menu" />
     </LinearLayout>

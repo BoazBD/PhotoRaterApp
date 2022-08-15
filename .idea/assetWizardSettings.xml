@@ -31,6 +31,20 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="C:\Users\Boaz\AndroidStudioProjects\PhotoRater\app\src\main\res\drawable\heart.png" />
+                                                <entry key="opacityPercent" value="80" />
+                                                <entry key="paddingPercent" value="-5" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="text">
                                         <value>
                                           <PersistentState>
@@ -53,6 +67,15 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\Boaz\AndroidStudioProjects\PhotoRater\app\src\main\res\drawable\heart.png" />
+                                      <entry key="outputName" value="hearts_logo_icn" />
+                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="themeColor" value="3c6464" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -80,7 +103,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\ThisPersonDoesntExist\person2.png" />
+                                                <entry key="imagePath" value="C:\Users\Boaz\Downloads\Photo Rater Icon.png" />
+                                                <entry key="scalingPercent" value="59" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -112,7 +136,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="person1" />
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="f2f2f2" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -153,8 +178,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="ffffff" />
-                                                <entry key="imagePath" value="C:\Users\Boaz\AndroidStudioProjects\PhotoRater\app\src\main\res\drawable\heart.png" />
-                                                <entry key="paddingPercent" value="35" />
+                                                <entry key="imagePath" value="C:\Users\Boaz\Downloads\photo rater logo.png" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -186,9 +210,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="iconShape" value="CIRCLE" />
-                                      <entry key="imageAsset" value="C:\Users\Boaz\AndroidStudioProjects\PhotoRater\app\src\main\res\drawable\heart.png" />
-                                      <entry key="outputName" value="info_button" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\Boaz\Downloads\photo rater logo.png" />
+                                      <entry key="outputName" value="logo" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -281,6 +305,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="C:\Users\Boaz\AndroidStudioProjects\PhotoRater\app\src\main\res\drawable" />
+                                                <entry key="scalingPercent" value="69" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -315,11 +341,6 @@
                             </entry>
                           </map>
                         </option>
-                        <option name="values">
-                          <map>
-                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
-                          </map>
-                        </option>
                       </PersistentState>
                     </value>
                   </entry>
@@ -343,7 +364,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/thumb_up/baseline_thumb_up_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/lock/baseline_lock_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -353,8 +374,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="thumbsup" />
+                            <entry key="color" value="262626" />
+                            <entry key="outputName" value="ic_baseline_lock_24" />
                             <entry key="sourceFile" value="C:\Users\Boaz\AndroidStudioProjects\Rater" />
                           </map>
                         </option>

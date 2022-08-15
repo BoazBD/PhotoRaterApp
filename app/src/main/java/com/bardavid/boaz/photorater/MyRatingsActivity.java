@@ -98,7 +98,7 @@ public class MyRatingsActivity extends AppCompatActivity {
             noPhotosText.setVisibility(View.VISIBLE);
             noPhotosBtn.setVisibility(View.VISIBLE);
         } else {
-            RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this, pairs, ratingsCount);
+            RecyclerViewAdapter myAdapter = new RecyclerViewAdapter(this,id, pairs, ratingsCount);
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
             dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.recyclerview_divider));
             recyclerView.addItemDecoration(dividerItemDecoration);

@@ -11,25 +11,33 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.bardavid.boaz.photorater.SettingsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.bardavid.boaz.photorater.MyRatingsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.bardavid.boaz.photorater.RateActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.bardavid.boaz.photorater.ChoosePhotoActivity"
             android:exported="true"
             android:label="@string/title_activity_choose_photo"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.bardavid.boaz.photorater.MainActivity">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name="com.bardavid.boaz.photorater.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".notificationService" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

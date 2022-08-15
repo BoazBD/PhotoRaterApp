@@ -30,14 +30,15 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textContent" />
+                app:layout_constraintTop_toBottomOf="@+id/textContent2" />
 
             <ImageView
+                android:labelFor="@id/closeImageView"
                 android:id="@+id/closeImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_close" />
@@ -47,19 +48,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="You need to rate 25 pictures \n in order to reveal your ratings"
-                android:textSize="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="10dp"
+                android:text=" In order to reveal your ratings, you \n need to rate 15 pictures of others. "
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
+            <TextView
+                android:id="@+id/textContent2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textContent"
+                android:textSize="18sp"
+                android:text=" If the photos are inappropriate, click "></TextView>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/reportIcon"
+                app:layout_constraintStart_toEndOf="@id/textContent2"
+                app:layout_constraintTop_toTopOf="@id/textContent2"
+                android:background="@drawable/report_circle"></ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reportBtnTxt"
+                android:text="(report button)"
+                android:layout_marginEnd="4dp"
+                android:textSize="9sp"
+                app:layout_constraintTop_toBottomOf="@id/reportIcon"
+                app:layout_constraintEnd_toEndOf="parent"></TextView>
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:text="Rate these pictures!"
-                android:textSize="32dp"
+                android:text="Choose the better photo!"
+                android:textSize="29sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -55,7 +56,7 @@ public class RateActivity extends AppCompatActivity {
     private String gender;
     private int age;
     private int ratingsCount, photoCount;
-    private Dialog instructionsDialog;
+    private Dialog instructionsDialog, doneRatingDialog;
     private Animation slideLeftFromCenter;
     private Animation slideLeftToCenter;
     private LinearLayout images, backgroundImages;
@@ -68,6 +69,7 @@ public class RateActivity extends AppCompatActivity {
         showNavigationBar();
         isShowingImage1 = Boolean.TRUE;
         instructionsDialog = new Dialog(this);
+        doneRatingDialog=new Dialog(this);
         if (ratingsCount == 0)
             openInstructionsDialog();
         indexOfPairToRate = ratingsCount;
@@ -142,8 +144,10 @@ public class RateActivity extends AppCompatActivity {
                 if (indexOfPairToRate >= uploads.size())
                     indexOfPairToRate = 0;
                 currPair = uploads.get(indexOfPairToRate);
-                for (int i = 0; i < 5; i++)
-                    loadNextPhotoFromCache();
+                for(int i=0;i<5;i++) {
+                    loadNextPhotoFromCache(indexOfPairToLoad);
+                    indexOfPairToLoad++;
+                }
                 loadFirstPhoto(0);
                 //grade 0 means dont add rating to currPhoto
             }
@@ -181,7 +185,7 @@ public class RateActivity extends AppCompatActivity {
 
     public void loadFirstPhoto(int grade) {
         //first tries to fetch next photo from cache (it tried to load to cache 5 next photos previously)
-        Picasso.get().load(currPair.getUrl1()).networkPolicy(NetworkPolicy.OFFLINE).rotate(currPair.getRotation1()).into(image3, new Callback() {
+        Picasso.get().load(currPair.getUrl1()).networkPolicy(NetworkPolicy.OFFLINE).rotate(currPair.getRotation1()).fit().centerCrop().into(image3, new Callback() {
             @Override
             public void onSuccess() {
                 //Toast.makeText(RateActivity.this, "SUCCESS OFFLINE", Toast.LENGTH_SHORT).show();
@@ -193,7 +197,9 @@ public class RateActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
                 backgroundImages.setVisibility(View.INVISIBLE);
                 images.setVisibility(View.INVISIBLE);
-                Picasso.get().load(currPair.getUrl1()).rotate(currPair.getRotation1()).into(image3, new Callback() {
+                image3.setVisibility(View.INVISIBLE);
+                image4.setVisibility(View.INVISIBLE);
+                Picasso.get().load(currPair.getUrl1()).rotate(currPair.getRotation1()).fit().centerCrop().into(image3, new Callback() {
                     @Override
                     public void onSuccess() {
                         loadSecondPhoto(grade,false);
@@ -211,13 +217,15 @@ public class RateActivity extends AppCompatActivity {
     public void loadSecondPhoto(int grade,boolean loadedPic1) {
         boolean shouldAnimate = loadedPic1 && image2.getDrawable() != null;
         //first tries to fetch next photo from cache (it tried to load to cache 5 next photos previously)
-        Picasso.get().load(currPair.getUrl2()).networkPolicy(NetworkPolicy.OFFLINE).rotate(currPair.getRotation2()).into(image4, new Callback() {
+        Picasso.get().load(currPair.getUrl2()).networkPolicy(NetworkPolicy.OFFLINE).rotate(currPair.getRotation2()).fit().centerCrop().into(image4, new Callback() {
             @Override
             public void onSuccess() {
                 //Toast.makeText(RateActivity.this, "SUCCESS OFFLINE", Toast.LENGTH_SHORT).show();
                 if (shouldAnimate) {
                     animateImageSwitch(grade);
                 } else {
+                    image3.setVisibility(View.VISIBLE);
+                    image4.setVisibility(View.VISIBLE);
                     images.setVisibility(View.INVISIBLE);
                     backgroundImages.setVisibility(View.VISIBLE);
                     handleSuccessfulImageLoad(grade);
@@ -227,11 +235,17 @@ public class RateActivity extends AppCompatActivity {
             @Override
             public void onError(Exception e) { //could not load from cache, now loads from online
                 progressBar.setVisibility(View.VISIBLE);
-                Picasso.get().load(currPair.getUrl2()).into(image4, new Callback() {
+                backgroundImages.setVisibility(View.INVISIBLE);
+                images.setVisibility(View.INVISIBLE);
+                image3.setVisibility(View.INVISIBLE);
+                image4.setVisibility(View.INVISIBLE);
+                Picasso.get().load(currPair.getUrl2()).rotate(currPair.getRotation2()).fit().centerCrop().into(image4, new Callback() {
                     @Override
                     public void onSuccess() {
                         images.setVisibility(View.INVISIBLE);
                         backgroundImages.setVisibility(View.VISIBLE);
+                        image3.setVisibility(View.VISIBLE);
+                        image4.setVisibility(View.VISIBLE);
                         handleSuccessfulImageLoad(grade);
                     }
 
@@ -242,7 +256,8 @@ public class RateActivity extends AppCompatActivity {
                 });
             }
         });
-        loadNextPhotoFromCache();
+        loadNextPhotoFromCache(indexOfPairToLoad);
+        indexOfPairToLoad++;
     }
 
     public void animateImageSwitch(int grade) {
@@ -269,12 +284,13 @@ public class RateActivity extends AppCompatActivity {
     }
 
     public void handleSuccessfulImageLoad(int grade) {
-        if(currPair.getFocus()!=null) {
+        if(currPair.getFocus()!=null && currPair.getFocus().length()>1) {
             focusTxt.setText("Focus on: " + currPair.getFocus());
             focusTxt.setVisibility(View.VISIBLE);
         }
-        else
+        else {
             focusTxt.setVisibility(View.INVISIBLE);
+        }
         LinearLayout temp0 = images;
         ImageView temp1=image1;
         ImageView temp2=image2;
@@ -291,8 +307,7 @@ public class RateActivity extends AppCompatActivity {
             ratingsCount++;
             updatePreferences();
             if (ratingsCount == Prefs.NUMBER_OF_RATINGS_NEEDED_FOR_EACH_PHOTO * photoCount) {
-                Intent intent = new Intent(RateActivity.this, MyRatingsActivity.class);
-                startActivity(intent);
+                openDoneRatingDialog();
             }
         }
         if (ratingsCount > Prefs.NUMBER_OF_RATINGS_NEEDED_FOR_EACH_PHOTO * photoCount)
@@ -394,6 +409,26 @@ public class RateActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    public void openDoneRatingDialog() {
+        doneRatingDialog.setContentView(R.layout.done_rating_dialog);
+        doneRatingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button continueBtn= doneRatingDialog.findViewById(R.id.continueBtn);
+        Button goRateBtn = doneRatingDialog.findViewById(R.id.goRatingsBtn);
+        continueBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doneRatingDialog.dismiss();
+            }
+        });
+        goRateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RateActivity.this, MyRatingsActivity.class);
+                startActivity(intent);
+            }
+        });
+        doneRatingDialog.show();
+    }
     public void openInstructionsDialog() {
         instructionsDialog.setContentView(R.layout.instructions_layout_dialog);
         instructionsDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -417,40 +452,46 @@ public class RateActivity extends AppCompatActivity {
     public void disableButtons() {
         votePhoto1Btn.setEnabled(false);
         votePhoto2Btn.setEnabled(false);
+        image1.setEnabled(false);
+        image2.setEnabled(false);
+        image3.setEnabled(false);
+        image4.setEnabled(false);
         reportImg.setEnabled(false);
     }
 
     public void enableButtons() {
         votePhoto1Btn.setEnabled(true);
         votePhoto2Btn.setEnabled(true);
+        image1.setEnabled(true);
+        image2.setEnabled(true);
+        image3.setEnabled(true);
+        image4.setEnabled(true);
         reportImg.setEnabled(true);
     }
 
-    public void loadNextPhotoFromCache() {
-        if (indexOfPairToLoad <= 200 && indexOfPairToLoad < uploads.size() - 1) {
-            Picasso.get().load(uploads.get(indexOfPairToLoad).getUrl1()).fetch(new Callback() {
+    public synchronized void loadNextPhotoFromCache(int index) {
+        if (index <= 200 && index < uploads.size() - 1) {
+            Picasso.get().load(uploads.get(index).getUrl1()).fetch(new Callback() {
                 @Override
                 public void onSuccess() {
                     //Toast.makeText(RateActivity.this,"finished loading photo"+indexOfPicToLoad,Toast.LENGTH_SHORT).show();
-                    Picasso.get().load(uploads.get(indexOfPairToLoad).getUrl2()).fetch(new Callback() {
+                    Picasso.get().load(uploads.get(index).getUrl2()).fetch(new Callback() {
                         @Override
                         public void onSuccess() {
-
+                            //Toast.makeText(RateActivity.this,"loaded "+String.valueOf(indexOfPairToLoad),Toast.LENGTH_SHORT).show();
+                            //System.out.println("loaded "+String.valueOf(index));
                         }
 
                         @Override
                         public void onError(Exception e) {
-
                         }
                     });
                 }
 
                 @Override
                 public void onError(Exception e) {
-
                 }
             });
-            indexOfPairToLoad++;
         }
     }
 }

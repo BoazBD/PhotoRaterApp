@@ -1,7 +1,10 @@
 package com.bardavid.boaz.photorater;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Person;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -19,6 +22,11 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -32,8 +40,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     List<PairRates> pairs;
     Context context;
     int ratingsCount;
-    public RecyclerViewAdapter(Context ct, List<PairRates> pairs, int ratingsCount){
+    String id;
+    public RecyclerViewAdapter(Context ct,String id, List<PairRates> pairs, int ratingsCount){
         context=ct;
+        this.id=id;
         this.pairs = pairs;
         this.ratingsCount=ratingsCount;
     }
@@ -47,10 +57,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Picasso.get().load(pairs.get(position).getUrl1()).rotate(pairs.get(position).getRotation1()).into(holder.image1, new Callback() {
+        Picasso.get().load(pairs.get(position).getUrl1()).rotate(pairs.get(position).getRotation1()).fit().centerCrop().into(holder.image1, new Callback() {
             @Override
             public void onSuccess() {
-                Picasso.get().load(pairs.get(position).getUrl2()).rotate(pairs.get(position).getRotation2()).into(holder.image2, new Callback() {
+                Picasso.get().load(pairs.get(position).getUrl2()).rotate(pairs.get(position).getRotation2()).fit().centerCrop().into(holder.image2, new Callback() {
                     @Override
                     public void onSuccess() {
                         holder.imagesLayout.setVisibility(View.VISIBLE);
@@ -62,6 +72,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             holder.chart.setVisibility(View.INVISIBLE);
                             holder.ratingsProcessText.setVisibility(View.VISIBLE);
                             holder.goRateBtn.setVisibility(View.VISIBLE);
+                            holder.lock.setVisibility(View.VISIBLE);
+                            enableDeleteBtn(holder,position);
                         } else if (pairs.get(position).getTotalVotes() == 0) {
                             //User rated enough but the photo does'nt have ratings yet
                             holder.imagesLayout.setVisibility(View.VISIBLE);
@@ -71,6 +83,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             holder.ratingsProcessText.setText("Unfortunately, there are no votes yet,\nbut the photos are currently being rated by other people.\nCome back later to see results!");
                             holder.chart.setVisibility(View.INVISIBLE);
                             holder.ratingsProcessText.setVisibility(View.VISIBLE);
+                            enableDeleteBtn(holder,position);
                         } else {
                             //User rated enough, reveal rating chart
                             holder.progressBar.setVisibility(View.INVISIBLE);
@@ -81,6 +94,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             holder.totalVotesPhoto1Txt.setText("Total votes: "+ pairs.get(position).getPhoto1Votes());
                             holder.totalVotesPhoto2Txt.setText("Total votes: "+ pairs.get(position).getPhoto2Votes());
                             plotChart(holder, pairs.get(position).getPhoto1Votes(), pairs.get(position).getPhoto2Votes());
+                            enableDeleteBtn(holder,position);
                         }
                     }
 
@@ -97,14 +111,36 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
     }
+    public void enableDeleteBtn(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position){
+        holder.deleteBtn.setVisibility(View.VISIBLE);
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Do you want to permanently delete this pair of photos?");
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        deletePair(position);
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+    }
 
     public void plotChart(MyViewHolder holder,int photo1Votes,int photo2Votes) {
         ArrayList<BarEntry> barEntries=new ArrayList<>();
         barEntries.add(new BarEntry(1,photo1Votes));
         barEntries.add(new BarEntry(2,photo2Votes));
         BarChart chart= holder.chart;
-        BarDataSet barDataSet=new BarDataSet(barEntries,"rates");
-        barDataSet.setColor(Color.rgb(50,100,100));
+        BarDataSet barDataSet=new BarDataSet(barEntries,"Votes");
+        barDataSet.setColor(Color.rgb(138,92,255));
         BarData theData= new BarData(barDataSet);
         ValueFormatter vf = new ValueFormatter() { //value format here, here is the overridden method
             @Override
@@ -152,6 +188,48 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         chart.animateY(1500);
     }
+    public void deletePair(int position){
+        //Removing pair from database
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference().child(Prefs.PUBLIC);
+        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //Remove pair from the person's list of pairs
+                if(snapshot.child(Prefs.PEOPLE).hasChild(id)) {
+                    PersonModel person = snapshot.child(Prefs.PEOPLE).child(id).getValue(PersonModel.class);
+                    if (person != null) {
+                        person.removePairCode(pairs.get(position).getPairID());
+                        dbRef.child(Prefs.PEOPLE).child(id).setValue(person);
+                    }
+                }
+                //Remove pair from Pairs database branch
+                if(snapshot.child(Prefs.PAIRS_RATED).hasChild(pairs.get(position).getPairID())){
+                    PairRates pair = snapshot.child(Prefs.PAIRS_RATED).child(pairs.get(position).getPairID()).getValue(PairRates.class);
+                    if(pair!=null){
+                        dbRef.child(Prefs.DELETED_PAIRS).child(pairs.get(position).getPairID()).setValue(pair);
+                        dbRef.child(Prefs.PAIRS_RATED).child(pairs.get(position).getPairID()).removeValue();
+                    }
+                }
+                if(snapshot.child(Prefs.PAIRS_NEEDS_RATING).hasChild(pairs.get(position).getPairID())){
+                    PairRates pair = snapshot.child(Prefs.PAIRS_NEEDS_RATING).child(pairs.get(position).getPairID()).getValue(PairRates.class);
+                    if(pair!=null){
+                        dbRef.child(Prefs.DELETED_PAIRS).child(pairs.get(position).getPairID()).setValue(pair);
+                        dbRef.child(Prefs.PAIRS_NEEDS_RATING).child(pairs.get(position).getPairID()).removeValue();
+                    }
+                }
+                //Removes pair from recycler view
+                pairs.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeRemoved(position,pairs.size());
+                Toast.makeText(context,"Photos deleted successfully",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     @Override
     public int getItemCount() {
         return pairs.size();
@@ -159,10 +237,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView image1, image2;
-        private ImageView numVotes, questionmark;
+        private ImageView numVotes, lock;
         private TextView totalVotesPhoto1Txt,totalVotesPhoto2Txt;
         private BarChart chart;
-        private Button goRateBtn;
+        private Button goRateBtn,deleteBtn;
         private TextView ratingsProcessText,ratesTxt;
         private ProgressBar progressBar;
         private LinearLayout imagesLayout;
@@ -177,7 +255,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             chart = itemView.findViewById(R.id.chart);
             ratingsProcessText=itemView.findViewById(R.id.ratingsProcessText);
             progressBar=itemView.findViewById(R.id.progress_bar);
-
+            lock=itemView.findViewById(R.id.lock_image);
+            deleteBtn=itemView.findViewById(R.id.deleteBtn);
             goRateBtn=itemView.findViewById(R.id.goRateBtn);
             goRateBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -186,7 +265,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     context.startActivity(intent);
                 }
             });
-
         }
     }
 }

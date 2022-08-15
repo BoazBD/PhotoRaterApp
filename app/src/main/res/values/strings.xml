@@ -2,9 +2,11 @@
     <string name="app_name">Photo Rater</string>
     <string name="title_activity_choose_photo">Choose Photo</string>
     <string name="rate_this_picture">Rate this picture</string>
-    <string name="welcome_title">Welcome to Rater!</string>
-    <string name="welcome_text1">Sign up, upload your photos and get them rated by real people!</string>
-    <string name="welcome_text2">For each photo you upload, you will need to rate 25 photos of other people, in order to see your ratings</string>
-
-
+    <string name="welcome_title">Welcome to Photo Rater!</string>
+    <string name="welcome_text1">Sign up, and get your photos rated by real people!</string>
+    <string name="welcome_text2">Upload pairs of photos, and let lots of people vote which photo is better.</string>
+    <string name="welcome_text3">For each pair you upload, you will need to rate 15 photos of other people, in order to see your ratings.</string>
+    <string name="votes"><u>Votes</u></string>
+    <string name="done_rating_title"><b><u>You\'ve unlocked your ratings!</u></b></string>
+    <string name="done_rating_text">You\'ve rated enough photos to unlock your ratings. However, You can continue to rate other people\'s photos and watch your unlocked ratings anytime later.</string>
 </resources>

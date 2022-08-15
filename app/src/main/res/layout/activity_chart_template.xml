@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="230dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,21 +19,59 @@
     <ImageView
         android:id="@+id/image1"
         android:layout_width="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
         <com.github.mikephil.charting.charts.BarChart
+            android:layout_marginTop="40dp"
             android:id="@+id/chart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            />
     <ImageView
         android:id="@+id/image2"
         android:layout_width="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
          />
+
     </LinearLayout>
+    <TextView
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chartTitle"
+        android:textSize="28sp"
+        android:text="@string/votes"
+        ></TextView>
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/delete_button"
+        android:text="DELETE"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imagesLayout"></Button>
+    <ImageView
+        android:id="@+id/lock_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/ic_baseline_lock_24"
+        android:visibility="invisible"></ImageView>
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="0dp"
@@ -50,7 +88,7 @@
         android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imagesLayout"
+        app:layout_constraintTop_toBottomOf="@id/deleteBtn"
         android:id="@+id/totalVotesLayout"
         android:visibility="invisible">
     <TextView
@@ -81,7 +119,7 @@
         android:layout_marginStart="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imagesLayout"></TextView>
+        app:layout_constraintTop_toBottomOf="@id/deleteBtn"></TextView>
 
     <Button
         android:id="@+id/goRateBtn"
@@ -93,4 +131,5 @@
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ratingsProcessText"></Button>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

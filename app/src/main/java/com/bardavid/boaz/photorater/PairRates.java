@@ -134,7 +134,6 @@ public class PairRates {
                         databaseRef.child(Prefs.PAIRS_RATED).child(getPairID()).removeValue();
                     else
                         databaseRef.child(Prefs.PAIRS_NEEDS_RATING).child(getPairID()).removeValue();
-
                     databaseRef.child(Prefs.REPORTED_PAIRS).child(getPairID()).setValue(image);
                 } else if (isRated)
                     databaseRef.child(Prefs.PAIRS_RATED).child(getPairID()).setValue(image);

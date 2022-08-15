@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F2F2F2"
+    >
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="?attr/actionBarSize"
+        android:src="@drawable/photo_txt"></ImageView>
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="?attr/actionBarSize"
+        android:src="@drawable/rater_txt"></ImageView>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="?attr/actionBarSize"
+        android:src="@drawable/hearts_logo" />
+</Toolbar>

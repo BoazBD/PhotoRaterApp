@@ -6,27 +6,18 @@
     android:layout_height="match_parent"
     tools:context="com.bardavid.boaz.photorater.ChoosePhotoActivity"
 >
-    <androidx.appcompat.widget.Toolbar
+    <include layout="@layout/top_toolbar"
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#4d5198"
-        app:titleTextColor="#FFFFFF"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:title="Upload Photo"
-        android:textAlignment="center"
-        android:elevation="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        ></include>
 
     <Button
         android:id="@+id/chooseBtn1"
         android:layout_width="150dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/custom_button"
+        android:minWidth="100dp"
+        android:minHeight="50dp"
         app:layout_constraintVertical_weight="1"
         android:text="Open Gallery 1"
         app:layout_constraintEnd_toStartOf="@id/chooseBtn2"
@@ -37,8 +28,10 @@
         android:id="@+id/chooseBtn2"
         android:layout_width="150dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/custom_button"
+        android:minWidth="100dp"
+        android:minHeight="50dp"
         android:text="Open Gallery 2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/chooseBtn1"
@@ -47,36 +40,41 @@
     <LinearLayout
         android:id="@+id/imagesLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         app:layout_constraintBottom_toTopOf="@id/rotateBtns"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseBtn1">
+        app:layout_constraintTop_toBottomOf="@+id/chooseBtn1"
+        >
 
         <ImageView
+            android:labelFor="@+id/blankImage1"
             android:id="@+id/blankImage1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="2.5dp"
+            android:layout_weight="1"
             android:src="@drawable/default_image" />
 
         <ImageView
             android:id="@+id/blankImage2"
+            android:labelFor="@+id/blankImage2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginStart="2.5dp"
             android:layout_marginEnd="5dp"
+            android:layout_weight="1"
             android:src="@drawable/default_image" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/rotateBtns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/focusTxt">
@@ -86,12 +84,12 @@
             android:layout_weight="1">
     <Button
         android:id="@+id/rotatePhoto1"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:labelFor="@id/rotatePhoto1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@mipmap/rotate_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         ></Button>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -101,47 +99,51 @@
             android:layout_weight="1">
     <Button
         android:id="@+id/rotatePhoto2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:labelFor="@id/rotatePhoto2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@mipmap/rotate_button"
         ></Button>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
     <Button
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:id="@+id/infoBtn"
+        android:labelFor="@id/infoBtn"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toTopOf="@id/focusTxt"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toTopOf="@id/uploadBtn"
         android:background="@mipmap/info_button"
         android:layout_marginStart="10dp"></Button>
 
     <TextView
         android:id="@+id/focusTxt"
-        android:textSize="20dp"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="25dp"
         app:layout_constraintStart_toEndOf="@id/infoBtn"
-        app:layout_constraintBottom_toTopOf="@id/uploadBtn"
-        android:text="Focus (optional):"></TextView>
+        app:layout_constraintTop_toTopOf="@id/infoBtn"
+        android:text="Focus :"></TextView>
 
     <EditText
         android:id="@+id/focusEditTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:hint="(optional)"
         android:ems="8"
         android:maxLength="15"
-        android:textSize="20dp"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
         android:inputType="textPersonName"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="25dp"
         app:layout_constraintStart_toEndOf="@id/focusTxt"
         app:layout_constraintTop_toTopOf="@id/focusTxt"
         app:layout_constraintBottom_toTopOf="@id/uploadBtn"
@@ -153,7 +155,7 @@
         android:layout_width="200dp"
         android:layout_height="0dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="90dp"
         android:background="@drawable/custom_button"
         android:text="Upload"
         android:visibility="invisible"
@@ -190,7 +192,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
-            android:backgroundTint="#4d5198"
+            android:backgroundTint="#919191"
             app:itemTextColor="#FFFFFF"
             app:menu="@menu/bottom_menu" />
 

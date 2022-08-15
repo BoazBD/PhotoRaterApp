@@ -30,8 +30,10 @@ public class Prefs {
     static final String PAIRS_NEEDS_RATING="PairsNeedsRating";
     static final String PAIRS_RATED="PairsRated";
     static final String REPORTED_PAIRS="ReportedPairs";
-    static final int NUMBER_OF_RATINGS_NEEDED_FOR_EACH_PHOTO =5;
-    static final int PHOTO_RATINGS_LIMIT_SIZE=5;
+    static final String DELETED_PAIRS="DeletedPairs";
+    static final int NUMBER_OF_RATINGS_NEEDED_FOR_EACH_PHOTO =15;
+    static final int PHOTO_RATINGS_LIMIT_SIZE=15;
+    static final int MINUTES_WAIT_UNTIL_NOTIFICATION=60*3;
 
 
 }

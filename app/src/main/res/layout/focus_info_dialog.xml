@@ -33,6 +33,7 @@
 
             <ImageView
                 android:id="@+id/closeImageView"
+                android:labelFor="@id/closeImageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -43,12 +44,15 @@
 
             <TextView
                 android:id="@+id/textContent"
+                android:minHeight="120dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
                 android:layout_marginTop="5dp"
                 android:text=" In here you can write specific things \n that you want your photos to be rated\n by. When people rate your photos, they\n will be able to see what's written here.
-                \n For example: shoes, aaaaaa ,quality"
-                android:textSize="20dp"
+                \n For example: shoes, quality, hairstyle.."
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
@@ -59,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
                 android:text="Focus"
-                android:textSize="32dp"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

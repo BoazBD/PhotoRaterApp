@@ -71,7 +71,6 @@ public class ChoosePhotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_photo);
-        setSupportActionBar(findViewById(R.id.toolbar));
         Intent intent = getIntent();
         isUserFirstPhoto = intent.getStringExtra("from") != null && intent.getStringExtra("from").equals("main_activity");
         chooseBtn1 = findViewById(R.id.chooseBtn1);
@@ -146,14 +145,14 @@ public class ChoosePhotoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 rotationPhoto1 = (rotationPhoto1 - 90) % 360;
-                Picasso.get().load(ImageUri1).rotate(rotationPhoto1).into(blankImage1);
+                Picasso.get().load(ImageUri1).rotate(rotationPhoto1).fit().centerCrop().into(blankImage1);
             }
         });
         rotateBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rotationPhoto2 = (rotationPhoto2 - 90) % 360;
-                Picasso.get().load(ImageUri2).rotate(rotationPhoto2).into(blankImage2);
+                Picasso.get().load(ImageUri2).rotate(rotationPhoto2).fit().centerCrop().into(blankImage2);
             }
         });
         infoBtn.setOnClickListener(new View.OnClickListener() {
@@ -195,12 +194,12 @@ public class ChoosePhotoActivity extends AppCompatActivity {
                 && data != null && data.getData() != null) {
             if (chosenPhoto == 1) {
                 ImageUri1 = data.getData();
-                Picasso.get().load(ImageUri1).into(blankImage1);
+                Picasso.get().load(ImageUri1).fit().centerCrop().into(blankImage1);
                 photo1Chosen = true;
                 rotateBtn1.setEnabled(true);
             } else if (chosenPhoto == 2) {
                 ImageUri2 = data.getData();
-                Picasso.get().load(ImageUri2).into(blankImage2);
+                Picasso.get().load(ImageUri2).fit().centerCrop().into(blankImage2);
                 photo2Chosen = true;
                 rotateBtn2.setEnabled(true);
             }
@@ -320,6 +319,13 @@ public class ChoosePhotoActivity extends AppCompatActivity {
         rotateBtn1.setEnabled(false);
         rotateBtn2.setEnabled(false);
         focusText.setEnabled(false);
+        blankImage1.setEnabled(false);
+        blankImage2.setEnabled(false);
+        infoBtn.setEnabled(false);
+        bottomNavigationView.getMenu().findItem(R.id.upload).setEnabled(false);
+        bottomNavigationView.getMenu().findItem(R.id.graph).setEnabled(false);
+        bottomNavigationView.getMenu().findItem(R.id.settings).setEnabled(false);
+        bottomNavigationView.getMenu().findItem(R.id.home).setEnabled(false);
     }
 
     public void unlockButtons() {
@@ -329,6 +335,13 @@ public class ChoosePhotoActivity extends AppCompatActivity {
         rotateBtn1.setEnabled(true);
         rotateBtn2.setEnabled(true);
         focusText.setEnabled(true);
+        blankImage1.setEnabled(true);
+        blankImage2.setEnabled(true);
+        infoBtn.setEnabled(true);
+        bottomNavigationView.getMenu().findItem(R.id.upload).setEnabled(true);
+        bottomNavigationView.getMenu().findItem(R.id.graph).setEnabled(true);
+        bottomNavigationView.getMenu().findItem(R.id.settings).setEnabled(true);
+        bottomNavigationView.getMenu().findItem(R.id.home).setEnabled(true);
     }
 
     public void moveToRate() {

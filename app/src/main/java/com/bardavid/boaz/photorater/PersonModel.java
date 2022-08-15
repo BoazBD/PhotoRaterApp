@@ -92,4 +92,7 @@ public class PersonModel {
     public void setId(String id) {
         this.id = id;
     }
+    public void removePairCode(String code){
+        pairCodes.remove(code);
+    }
 }

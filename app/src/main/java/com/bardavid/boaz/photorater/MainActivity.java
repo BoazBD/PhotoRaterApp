@@ -1,10 +1,15 @@
 package com.bardavid.boaz.photorater;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //sets up notification alerts for the future
         //checks if user already connected to account
         if(getSharedPreferences(Prefs.PREFS_NAME, MODE_PRIVATE).getString("name", null) != null){
             Intent intent = new Intent(MainActivity.this, RateActivity.class);
@@ -34,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return;
         }
+        createNotification();
         showWelcomeDialog();
         setContentView(R.layout.activity_main);
         nameTxtView = findViewById(R.id.name);
@@ -92,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
             if(valids.indexOf(ageTxtView.getText().charAt(i))==-1)
                 return false;
         }
+        if(Integer.parseInt(ageTxtView.getText().toString())<14)
+            return false;
         return true;
     }
     public void genderRadioButtonHandler(View view) {
@@ -169,5 +178,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         welcomeDialog.show();
+    }
+    public void setUpNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name= "ReminderChannel";
+            String description = "Channel for Photo Rater";
+            int importance= NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel=new NotificationChannel("notifyPhotoRater",name,importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager=getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    public void createNotification(){
+        setUpNotificationChannel();
+
+        Intent intent= new Intent(MainActivity.this, notificationService.class);
+        PendingIntent pendingIntent=PendingIntent.getBroadcast(MainActivity.this,0,intent,PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
+        long curTime=System.currentTimeMillis();
+        long milisecondsWaitingTime=1000*60*Prefs.MINUTES_WAIT_UNTIL_NOTIFICATION;
+        alarmManager.set(AlarmManager.RTC_WAKEUP,curTime+milisecondsWaitingTime,pendingIntent);
+
     }
 }
