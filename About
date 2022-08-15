@@ -6,4 +6,4 @@ For example, which pair of shoes is nice, which painting is prettier, or which h
 Other users will see the 2 photos, and vote which one they like better.
 After you help others by voting their pictures, you will be able too see your results, meaning how many people voted for each photo.
 
-The app stores all information collected (details and photos) using FireBase cloud storage and database.
+The app stores all information collected (details and photos) using FireBase Cloud Storage and Real Time Database.
