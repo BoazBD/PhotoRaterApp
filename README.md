@@ -23,3 +23,9 @@ Photo Rater is an Android app designed to help users make decisions by crowdsour
 Please be aware that Google has recently taken down this app due to lack of maintenance for the latest versions. We appreciate your support and apologize for any inconvenience caused.
 
 ---
+[![Screenshot-20240511-102032-Photo-Rater.jpg](https://i.postimg.cc/LsCK72Q2/Screenshot-20240511-102032-Photo-Rater.jpg)](https://postimg.cc/NyHz2qwz)
+[![Screenshot-20240511-102623-Photo-Rater.jpg](https://i.postimg.cc/t4pK4YL9/Screenshot-20240511-102623-Photo-Rater.jpg)](https://postimg.cc/w74fWTqr)
+[![Screenshot-20240511-102647-Photo-Rater.jpg](https://i.postimg.cc/BZ19YWTf/Screenshot-20240511-102647-Photo-Rater.jpg)](https://postimg.cc/5j1RyRKs)
+[![Screenshot-20240511-102740-Photo-Rater.jpg](https://i.postimg.cc/1XDd9QBg/Screenshot-20240511-102740-Photo-Rater.jpg)](https://postimg.cc/GThKQ6Zr)
+[![Screenshot-20240511-102810-Photo-Rater.jpg](https://i.postimg.cc/zGxcDpCk/Screenshot-20240511-102810-Photo-Rater.jpg)](https://postimg.cc/CRfNmG6Z)
+[![Screenshot-20240511-103158-Photo-Rater.jpg](https://i.postimg.cc/fRzPh19L/Screenshot-20240511-103158-Photo-Rater.jpg)](https://postimg.cc/nCW24RTb)
